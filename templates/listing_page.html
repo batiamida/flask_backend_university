@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Users Listing</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+  <link rel="stylesheet" href="../static/css/listing_page.css">
+</head>
+<body>
+    <header>
+      <nav>
+        <h1>Students Rating</h1>
+        <ul>
+          <li><a href="{{ url_for('main_page') }}">Home</a></li>
+          <li><a href="{{ url_for('get_users_list') }}">Users</a></li>
+          <li><a href="#">Pricing</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+  <main>
+    <div class="users-list">
+      {% for i in range(0, len) %}
+      <div class="user">
+        <div class="user-details">
+          <h2>{{ users[i].firstName }} {{ users[i].lastName }}</h2>
+          <p>{{ users[i].email }}</p>
+          <p>{{ users[i].role }}</p>
+        </div>
+        {% if users[i].role == "student" %}
+        <div class="actions">
+          <button class="edit-button">Edit</button>
+          <button class="delete-button">Delete</button>
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </main>
+
+    <footer>
+      <div class="footer-content">
+        <p> Students Rating </p>
+        <p>&copy; 2023 Students Rating. All rights reserved.</p>
+      </div>
+    </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
