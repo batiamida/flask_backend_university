@@ -1,0 +1,123 @@
+<body>
+  <div class="container">
+    <h2>Subject Ratings</h2>
+    <div class="row">
+      <div class="col-subject">
+        <h3>Math</h3>
+        <ul class="ratings">
+          <li><span class="name">Student 1:</span> <span class="value">4.5</span></li>
+          <li><span class="name">Student 2:</span> <span class="value">3.8</span></li>
+          <li><span class="name">Student 3:</span> <span class="value">4.0</span></li>
+        </ul>
+      </div>
+      <div class="col-subject">
+        <h3>English</h3>
+        <ul class="ratings">
+          <li><span class="name">Student 1:</span> <span class="value">3.5</span></li>
+          <li><span class="name">Student 2:</span> <span class="value">4.2</span></li>
+          <li><span class="name">Student 3:</span> <span class="value">3.9</span></li>
+        </ul>
+      </div>
+      <div class="col-subject">
+        <h3>Science</h3>
+        <ul class="ratings">
+          <li><span class="name">Student 1:</span> <span class="value">4.2</span></li>
+          <li><span class="name">Student 2:</span> <span class="value">3.7</span></li>
+          <li><span class="name">Student 3:</span> <span class="value">4.1</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* Container */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Subject */
+.col-subject {
+  margin: 20px;
+  padding: 20px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.col-subject h3 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Ratings */
+.ratings {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.ratings li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.ratings .name {
+  font-weight: bold;
+  color: #666;
+  margin-right: 10px;
+}
+
+.ratings .value {
+  font-size: 20px;
+  font-weight: bold;
+  color: #ff9900;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+  
+  .col-subject {
+    margin: 20px 0;
+  }
+}
+
+  </style>
+  <script type="text/javascript">
+    <script>
+const url = 'http://127.0.0.1:5000/score/rating/3';
+
+fetch(url)
+  .then(response => response.json())
+  .then(data => {
+    const mathRatings = document.querySelector('.col-subject:nth-of-type(1) .ratings');
+    const englishRatings = document.querySelector('.col-subject:nth-of-type(2) .ratings');
+    const scienceRatings = document.querySelector('.col-subject:nth-of-type(3) .ratings');
+
+    data.forEach(item => {
+      const [name, value] = item.split(': ');
+      const li = document.createElement('li');
+      li.innerHTML = `<span class="name">${name}:</span> <span class="value">${value}</span>`;
+
+      if (item.includes('Math')) {
+        mathRatings.appendChild(li);
+      } else if (item.includes('English')) {
+        englishRatings.appendChild(li);
+      } else if (item.includes('Science')) {
+        scienceRatings.appendChild(li);
+      }
+    });
+  });
+</script>
+
+  </script>
+</body>
